@@ -1,4 +1,10 @@
 ## IBM HR Analytics — Employee Attrition & Performance
+![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat&logo=python)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.x-red?style=flat&logo=streamlit)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?style=flat&logo=mysql)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.x-F7931E?style=flat&logo=scikit-learn)
+![Pandas](https://img.shields.io/badge/Pandas-2.x-green?style=flat&logo=pandas)
+![Excel](https://img.shields.io/badge/Excel-Export-217346?style=flat&logo=microsoftexcel)
 
 An end-to-end HR analytics pipeline that combines **SQL querying, Exploratory Data Analysis, Machine Learning, and an interactive Streamlit dashboard** to analyse and predict employee attrition using the IBM HR Analytics dataset.
 
