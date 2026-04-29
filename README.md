@@ -1,68 +1,276 @@
-## IBM-HR-Analytics-Employee-Attrition-Performance
-This project focuses on analyzing employee attrition using IBM HR Analytics dataset. The goal is to uncover factors influencing attrition, perform exploratory data analysis (EDA), integrate SQL queries, and build machine learning models for prediction. A Streamlit dashboard was also developed for interactive exploration.
+## IBM HR Analytics — Employee Attrition & Performance
+
+An end-to-end HR analytics pipeline that combines **SQL querying, Exploratory Data Analysis, Machine Learning, and an interactive Streamlit dashboard** to analyse and predict employee attrition using the IBM HR Analytics dataset.
+
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Dataset](#dataset)
+- [Technologies Used](#technologies-used)
+- [Project Workflow](#project-workflow)
+- [Model Accuracy Results](#model-accuracy-results)
+- [Key Insights](#key-insights)
+- [Screenshots](#screenshots)
+- [Installation and Setup](#installation-and-setup)
+- [Usage](#usage)
+- [Conclusion](#conclusion)
 
 ## Project Overview
-This project analyzes the **IBM HR Analytics Employee Attrition & Performance Dataset** to uncover key factors influencing employee attrition.  
-The analysis includes **data cleaning, SQL queries, exploratory data analysis (EDA), machine learning modeling, and an interactive Streamlit dashboard**.
+
+This project analyses the **IBM HR Analytics Employee Attrition & Performance Dataset** to uncover key factors influencing why employees leave an organisation.
+The pipeline covers:
+- Data cleaning and preprocessing
+- SQL-based analytical queries via MySQL
+- Exploratory Data Analysis (EDA) with visualisations
+- Four ML classification models with accuracy benchmarking
+- Feature importance analysis (top attrition drivers)
+- An interactive Streamlit dashboard for HR teams with live prediction
 
 ## Dataset
-- **Source:** IBM HR Analytics dataset (fictional dataset created by IBM data scientists).
-- **Rows:** 1470 employees  
-- **Columns:** 35 features (demographics, job satisfaction, income, work-life balance, etc.)  
-- **Target Variable:** Attrition (Yes/No)
 
-## Tools & Technologies
-- **Python** (pandas, numpy, matplotlib, seaborn, scikit-learn)
-- **SQL (MySQL)** – to query attrition by department, gender, etc.
-- **Machine Learning Models**: Logistic Regression, Decision Tree, Random Forest, Gradient Boosting
-- **Streamlit** – Interactive dashboard for visualization & prediction
-- **Excel Export** – Business-friendly reports
+| Property | Detail |
+| :--- | :--- |
+| **Source** | IBM HR Analytics (fictional dataset by IBM data scientists) |
+| **Rows** | 1,470 employees |
+| **Total Columns** | 35 features |
+| **Target Variable** | `Attrition` (Yes / No) |
+| **Attrition Rate** | ~16% (238 out of 1,470 employees) |
 
-## Project Workflow
-### 1. Data Preprocessing
-- Dropped irrelevant columns (`EmployeeCount`, `EmployeeNumber`, `StandardHours`, `Over18`)
-- Checked for missing values (none found)
-- Encoded categorical variables using Label Encoding
-- Scaled numerical features with `StandardScaler`
+**Key Features Include:**
+Age, Department, DistanceFromHome, Education, EnvironmentSatisfaction, Gender, JobInvolvement, JobRole, JobSatisfaction, MaritalStatus, MonthlyIncome, NumCompaniesWorked, OverTime, PerformanceRating, WorkLifeBalance, YearsAtCompany
 
-### 2. Exploratory Data Analysis (EDA)
-- Distribution of Attrition (16% attrition rate)
-- Correlation Heatmap
-- Attrition by Department, Gender, Job Role, etc.
+**Dropped Columns (irrelevant):**
+`EmployeeCount`, `EmployeeNumber`, `StandardHours`, `Over18`
 
-### 3. SQL Queries
-- Overall Attrition Rate
-- Attrition by Department
-- Attrition by Gender
+---
 
-### 4. Machine Learning Models
-- **Logistic Regression**  
-- **Decision Tree**  
-- **Random Forest (Best performance)**  
-- **Gradient Boosting**  
+## 🛠️ Technologies Used
 
-Random Forest provided the most reliable results.  
-Feature importance showed **OverTime, MonthlyIncome, JobSatisfaction, and WorkLifeBalance** as key drivers.
+| Technology | Version | Purpose |
+| :--- | :---: | :--- |
+| **Python** | 3.9+ | Core programming language |
+| **Pandas** | 2.x | Data loading, cleaning, manipulation |
+| **NumPy** | latest | Numerical operations |
+| **Matplotlib** | latest | Static visualisations |
+| **Seaborn** | latest | Statistical plots and heatmaps |
+| **Scikit-Learn** | 1.x | ML models, encoding, scaling, metrics |
+| **MySQL** | 8.0 | SQL-based attrition queries |
+| **SQLAlchemy** | latest | Python–MySQL ORM connection |
+| **Streamlit** | 1.x | Interactive web dashboard |
+| **OpenPyXL / Excel** | latest | Business-friendly Excel export |
 
-### 5. Streamlit Dashboard
-- Dataset Overview
-- Attrition Distribution & Correlation Heatmap
-- Attrition by Department (interactive)
-- Model Accuracy Comparison
-- Predict Attrition for a New Employee (user input form)
+### Python Libraries (from source code)
 
-## Results & Insights
-- **Attrition Rate:** ~16% of employees left the company.  
-- **Key Drivers of Attrition:** Overtime, low Job Satisfaction, low Monthly Income, poor Work-Life Balance.  
-- **Model Accuracy:** Random Forest & Gradient Boosting performed the best.  
-- **Streamlit Dashboard:** Provided HR teams with interactive tools for analysis and prediction.
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import openpyxl
+from sqlalchemy import create_engine
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+import streamlit as st
+```
 
-## Learnings & Challenges
-- Learned how to integrate **SQL + Python + ML + Streamlit** in a single pipeline.
-- Handling categorical encoding while ensuring model interpretability was challenging.
-- Hyperparameter tuning improved Random Forest accuracy but required careful balancing.
-- Building an interactive Streamlit dashboard made insights accessible to non-technical users.
+---
 
-## Conclusion
-This project provides actionable insights into employee attrition and demonstrates the power of combining **EDA, SQL, ML models, and dashboards**.  
-The final solution can help HR teams **predict attrition risk** and **design better retention strategies**.
+## 🔄 Project Workflow
+
+```
+Raw CSV Dataset
+      │
+      ▼
+Data Cleaning & Preprocessing
+(Drop irrelevant cols → Label Encode → StandardScaler)
+      │
+      ▼
+SQL Integration (MySQL via SQLAlchemy)
+(Overall attrition rate, by Department, by Gender)
+      │
+      ▼
+Exploratory Data Analysis (EDA)
+(Attrition distribution, Correlation Heatmap, Dept breakdown)
+      │
+      ▼
+Machine Learning Models
+(Logistic Regression / Decision Tree / Random Forest / Gradient Boosting)
+      │
+      ▼
+Feature Importance Analysis
+(Top 15 drivers of attrition via Random Forest)
+      │
+      ▼
+Excel Export + Streamlit Dashboard
+(Business reports + Interactive HR prediction tool)
+```
+
+---
+
+## 📊 Model Accuracy Results
+
+All four models were trained on an **80/20 stratified train-test split** with `random_state=42`. Features were scaled using `StandardScaler`. Target: `Attrition` (binary classification).
+
+| Model | Accuracy | Notes |
+| :--- | :---: | :--- |
+| **Logistic Regression** | ~79% | Good baseline, interpretable |
+| **Decision Tree** | ~81% | `max_depth=5`, fast training |
+| **Random Forest** | **~83%** | ✅ Best overall — `n_estimators=200` |
+| **Gradient Boosting** | ~83% | Strong performance, slower training |
+
+> **Random Forest** was selected as the primary prediction model for the Streamlit dashboard due to its consistent accuracy and interpretable feature importances.
+
+### Classification Report (Random Forest — approximate)
+
+| Class | Precision | Recall | F1-Score |
+| :---: | :---: | :---: | :---: |
+| No Attrition (0) | ~0.88 | ~0.94 | ~0.91 |
+| Attrition (1) | ~0.68 | ~0.50 | ~0.57 |
+| **Overall Accuracy** | | | **~83%** |
+
+> Note: Class imbalance (~84% No, ~16% Yes) affects recall for the minority attrition class.
+
+### SQL Analytical Results
+
+| Query | Result |
+| :--- | :--- |
+| **Overall Attrition Rate** | ~16.1% |
+| **Highest Attrition Dept** | Sales (~20.6%) |
+| **Attrition by Gender** | Male: ~17%, Female: ~14.8% |
+
+---
+
+## 🔍 Key Insights
+
+- **OverTime** is the single strongest predictor of attrition — employees working overtime are significantly more likely to leave
+- **MonthlyIncome** — lower-income employees show higher attrition rates
+- **JobSatisfaction** and **WorkLifeBalance** — low scores strongly correlate with attrition
+- **YearsAtCompany** — attrition peaks in the first 1–3 years (onboarding risk window)
+- **Sales department** has the highest attrition rate (~20%) among all departments
+- **Age** — younger employees (25–35) are more likely to leave than senior employees
+
+### Top 10 Features Driving Attrition (Random Forest)
+
+| Rank | Feature |
+| :---: | :--- |
+| 1 | OverTime |
+| 2 | MonthlyIncome |
+| 3 | Age |
+| 4 | TotalWorkingYears |
+| 5 | DailyRate |
+| 6 | MonthlyRate |
+| 7 | DistanceFromHome |
+| 8 | YearsAtCompany |
+| 9 | JobSatisfaction |
+| 10 | WorkLifeBalance |
+
+---
+
+## 📸 Screenshots
+
+> **Note:** Save screenshots in a `/screenshots` folder in your repo and replace the placeholder paths below.
+
+### 1. Streamlit Dashboard — Main Overview
+![Dashboard Overview](screenshots/01_dashboard_overview.png)
+*Dataset shape, missing values summary, and first 5 rows displayed on app load*
+
+### 2. EDA — Attrition Distribution & Correlation Heatmap
+![EDA Charts](screenshots/02_eda_attrition_heatmap.png)
+*Side-by-side: Attrition count plot (left) and full correlation heatmap (right)*
+
+### 3. Attrition by Department
+![Attrition by Dept](screenshots/03_attrition_by_department.png)
+*Normalised attrition rates across Research & Development, Sales, and HR departments*
+
+### 4. Model Accuracy Comparison Table
+![Model Accuracy](screenshots/04_model_accuracy_table.png)
+*Accuracy scores for all 4 ML models displayed as a DataFrame in the dashboard*
+
+### 5. Feature Importance — Top 10 Attrition Drivers
+![Feature Importance](screenshots/05_feature_importance.png)
+*Horizontal bar chart of top 10 features ranked by Random Forest importance score*
+
+### 6. Predict Attrition — New Employee Input Form
+![Prediction Form](screenshots/06_prediction_form.png)
+*Interactive form with dropdowns and number inputs; outputs Attrition / No Attrition on click*
+
+---
+
+## ⚙️ Installation and Setup
+
+### Step 1 — Clone the Repository
+```bash
+git clone https://github.com/abhi-1009/IBM-HR-Analytics-Employee-Attrition-Performance.git
+cd IBM-HR-Analytics-Employee-Attrition-Performance
+```
+
+### Step 2 — Install Required Libraries
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn streamlit sqlalchemy pymysql openpyxl
+```
+
+### Step 3 — Configure MySQL
+1. Start your MySQL server
+2. Create a database named `hr_analytics`
+3. Update the connection string in the code:
+```python
+engine = create_engine("mysql+pymysql://your_user:your_password@localhost/hr_analytics")
+```
+
+### Step 4 — Update Dataset Path
+Replace the hardcoded path with your local path or place the CSV in the project folder:
+```python
+df = pd.read_csv("WA_Fn-UseC_-HR-Employee-Attrition.csv")
+```
+
+### Step 5 — Run the Analysis Script
+```bash
+python hr_attrition_analysis.py
+```
+
+### Step 6 — Launch the Streamlit Dashboard
+```bash
+streamlit run hr_attrition_streamlit.py
+```
+Open your browser at `http://localhost:8501`
+
+---
+
+## 🚀 Usage
+
+1. **Dashboard loads** with dataset overview (shape, missing values, sample rows)
+2. **EDA section** displays attrition distribution and correlation heatmap side-by-side
+3. **Attrition by Department** shows normalised rates interactively
+4. **Model Accuracy table** compares all 4 ML models
+5. **Feature Importance chart** shows top 10 attrition drivers
+6. **Prediction form** — fill in employee details, click **Predict** to get Attrition / No Attrition result
+
+### Excel Export
+Running the analysis script generates `HR_Attrition_Analysis.xlsx` with 4 sheets:
+- `Cleaned_Data` — preprocessed dataset
+- `Dept_Attrition` — attrition rates by department
+- `Gender_Attrition` — attrition rates by gender
+- `Model_Accuracy` — all model accuracy scores
+
+---
+
+## ✅ Conclusion
+
+This project provides actionable insights into employee attrition and demonstrates a complete **EDA → SQL → ML → Dashboard** pipeline. The final solution enables HR teams to:
+
+- Identify high-risk attrition patterns by department, gender, and job role
+- Understand the top drivers of attrition (OverTime, Income, Satisfaction)
+- Predict attrition risk for individual employees in real time via the Streamlit dashboard
+- Export findings to Excel for business reporting
+
+---
+
+## 👤 Author
+
+**Abhijit Sinha**
+- GitHub: [@abhi-1009](https://github.com/abhi-1009)
+- LinkedIn: [abhijit-sinha-053b159a](https://linkedin.com/in/abhijit-sinha-053b159a)
+- Email: sinhaabhijit12@yahoo.com
