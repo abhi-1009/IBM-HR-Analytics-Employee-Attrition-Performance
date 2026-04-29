@@ -9,7 +9,6 @@ An end-to-end HR analytics pipeline that combines **SQL querying, Exploratory Da
 - [Project Workflow](#project-workflow)
 - [Model Accuracy Results](#model-accuracy-results)
 - [Key Insights](#key-insights)
-- [Screenshots](#screenshots)
 - [Installation and Setup](#installation-and-setup)
 - [Usage](#usage)
 - [Conclusion](#conclusion)
